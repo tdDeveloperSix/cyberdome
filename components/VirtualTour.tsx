@@ -40,6 +40,7 @@ const SCENES: Scene[] = [
     subtitle: 'Zone 2 – teknisk træning',
     description: 'I The Forge træner teknikere i sikre, isolerede miljøer. Her kan man øve både angreb og forsvar, arbejde med OT/IoT-hardware og løse CTF-udfordringer.',
     image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80',
+    videoSrc: '/videos/forge.mp4',
     duration: 10,
     analysis: ['Cyber Range', 'OT/IoT Lab', 'CTF Arena']
   },
