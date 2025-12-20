@@ -518,10 +518,17 @@ const App: React.FC = () => {
           <div className="mb-12 text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">De tre zoner</h2>
             <div className="w-24 h-1 bg-cyan-500 mx-auto mb-6"></div>
-            <p className="text-slate-300 max-w-3xl mx-auto text-lg">
-              CyberDome er bygget som en sammenhængende rejse: beslutning under pres, teknisk træning og fælles forståelse.
-              Vælg en zone her og hop direkte ned til detaljerne.
-            </p>
+            <div className="text-slate-300 max-w-3xl mx-auto text-lg space-y-5">
+              <p>
+                Aalborg CyberDome er mere end et sted, hvor man bliver undervist. Det er et samlet miljø, der arbejder med, hvordan man beskytter sig digitalt i praksis.
+                Projektet er opstået, fordi cybersikkerhed ikke kan løses med teknik alene. Ægte sikkerhed kræver samspil mellem dem, der træffer beslutninger, dem der arbejder teknisk med systemerne, og almindelige borgere, som forstår deres rolle.
+              </p>
+              <p>
+                Bygningen og måden man bevæger sig igennem den på, er tænkt som lag af beskyttelse. De tre områder er adskilt fysisk, men hænger tæt sammen i brug.
+                Erfaringer fra den tekniske Cyber Range bruges direkte i beslutningerne i War Room, mens oplevelserne i The Nexus giver historisk indsigt og en mere grundlæggende forståelse for, hvorfor cybersikkerhed er vigtig.
+                Samlet set skaber det en bedre fælles forståelse på tværs af roller.
+              </p>
+            </div>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <button
