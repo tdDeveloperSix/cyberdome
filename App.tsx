@@ -17,7 +17,11 @@ import {
   Briefcase,
   Target,
   Quote,
-  Clock
+  Clock,
+  Menu,
+  X,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TiltCard } from './components/TiltCard';
@@ -378,6 +382,8 @@ const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isTourActive, setIsTourActive] = useState(false);
   const [initialTourIndex, setInitialTourIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [zonesIntroExpanded, setZonesIntroExpanded] = useState(false);
 
   const [currentNodeId, setCurrentNodeId] = useState<string | null>(null);
   const [currentNode, setCurrentNode] = useState<ScenarioNode | null>(null);
@@ -429,6 +435,7 @@ const App: React.FC = () => {
 
   const scrollTo = (id: Section) => {
     setActiveSection(id);
+    setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -462,8 +469,66 @@ const App: React.FC = () => {
               </button>
             ))}
           </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              aria-label={isMobileMenuOpen ? 'Luk menu' : 'Åbn menu'}
+              onClick={() => setIsMobileMenuOpen((v) => !v)}
+              className="p-3 rounded-full border border-slate-700 bg-slate-950/60 text-slate-200 hover:border-cyan-500 hover:text-cyan-200 transition-colors"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </nav>
+
+      {/* Mobile navigation sheet */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-[60] md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobilmenu"
+        >
+          <button
+            aria-label="Luk menu"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="absolute inset-0 bg-black/60"
+          />
+          <div className="absolute top-16 left-0 right-0 mx-4 rounded-2xl border border-slate-800 bg-slate-950/95 backdrop-blur p-4 shadow-[0_20px_80px_rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-cyan-400" />
+                <span className="font-mono text-xs tracking-[0.35em] text-cyan-300 uppercase">Menu</span>
+              </div>
+              <button
+                aria-label="Luk menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 rounded-full border border-slate-700 text-slate-200 hover:border-cyan-500 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {NAV_ITEMS.map(({ label, section }) => (
+                <button
+                  key={section}
+                  onClick={() => scrollTo(section)}
+                  className={`w-full text-left px-4 py-3 rounded-xl border transition-colors font-mono uppercase tracking-widest text-sm
+                    ${activeSection === section
+                      ? 'border-cyan-500/60 bg-cyan-500/10 text-cyan-200'
+                      : 'border-slate-800 bg-slate-900/40 text-slate-200 hover:border-cyan-500/40 hover:bg-slate-900/70'
+                    }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* --- Hero Section --- */}
       <section id="home" className="relative h-screen z-10 overflow-hidden">
@@ -523,11 +588,32 @@ const App: React.FC = () => {
                 Aalborg CyberDome er mere end et sted, hvor man bliver undervist. Det er et samlet miljø, der arbejder med, hvordan man beskytter sig digitalt i praksis.
                 Projektet er opstået, fordi cybersikkerhed ikke kan løses med teknik alene. Ægte sikkerhed kræver samspil mellem dem, der træffer beslutninger, dem der arbejder teknisk med systemerne, og almindelige borgere, som forstår deres rolle.
               </p>
-              <p>
-                Bygningen og måden man bevæger sig igennem den på, er tænkt som lag af beskyttelse. De tre områder er adskilt fysisk, men hænger tæt sammen i brug.
-                Erfaringer fra den tekniske Cyber Range bruges direkte i beslutningerne i War Room, mens oplevelserne i The Nexus giver historisk indsigt og en mere grundlæggende forståelse for, hvorfor cybersikkerhed er vigtig.
-                Samlet set skaber det en bedre fælles forståelse på tværs af roller.
-              </p>
+              {zonesIntroExpanded && (
+                <p>
+                  Bygningen og måden man bevæger sig igennem den på, er tænkt som lag af beskyttelse. De tre områder er adskilt fysisk, men hænger tæt sammen i brug.
+                  Erfaringer fra den tekniske Cyber Range bruges direkte i beslutningerne i War Room, mens oplevelserne i The Nexus giver historisk indsigt og en mere grundlæggende forståelse for, hvorfor cybersikkerhed er vigtig.
+                  Samlet set skaber det en bedre fælles forståelse på tværs af roller.
+                </p>
+              )}
+            </div>
+
+            <div className="mt-5 flex justify-center">
+              <button
+                onClick={() => setZonesIntroExpanded((v) => !v)}
+                className="px-5 py-2.5 rounded-full border border-slate-700 bg-slate-950/60 text-slate-200 hover:border-cyan-500/60 hover:text-cyan-200 transition-colors flex items-center gap-2 text-sm font-mono uppercase tracking-widest"
+              >
+                {zonesIntroExpanded ? (
+                  <>
+                    <ChevronUp className="w-4 h-4" />
+                    Skjul
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4" />
+                    Læs mere
+                  </>
+                )}
+              </button>
             </div>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
