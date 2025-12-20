@@ -30,6 +30,7 @@ const SCENES: Scene[] = [
     subtitle: 'Zone 1 – ledelse og krisestyring',
     description: 'Her træner topledelsen beslutninger under pres i War Room. I ser også, hvordan deepfakes kan påvirke dømmekraft, og hvordan teams fungerer, når det spidser til.',
     image: 'https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80',
+    videoSrc: '/videos/command-center.mp4',
     duration: 10,
     analysis: ['War Room (360°)', 'Beslutninger under pres', 'Feedback og debrief']
   },
@@ -133,6 +134,9 @@ export const VirtualTour: React.FC<VirtualTourProps> = ({ onClose, initialSceneI
     if (isHero) return; // hero er statisk baggrund; video må gerne køre videre
     const v = videoRef.current;
     if (!v) return;
+    // Sørg for at video aldrig spiller med lyd (også på devices der "glemmer" muted ved play()).
+    v.muted = true;
+    v.defaultMuted = true;
     if (isPlaying) {
       const p = v.play();
       if (p && typeof (p as Promise<void>).catch === 'function') {
