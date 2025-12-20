@@ -53,10 +53,10 @@ interface ScenarioNode {
 
 const NAV_ITEMS: { label: string; section: Section }[] = [
   { label: 'Forside', section: 'home' },
+  { label: 'Tre zoner', section: 'facility' },
   { label: 'Command Center', section: 'executive' },
   { label: 'The Forge', section: 'forge' },
   { label: 'The Nexus', section: 'nexus' },
-  { label: 'Tre zoner', section: 'facility' },
   { label: 'Scenario Engine', section: 'simulation' },
   { label: 'Kontakt', section: 'contact' },
 ];
@@ -512,6 +512,239 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* --- The Facility (3D Cards) --- */}
+      <section id="facility" className="relative py-20 z-10 bg-slate-900/50">
+        <div className="container mx-auto px-6">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">De tre zoner</h2>
+            <div className="w-24 h-1 bg-cyan-500 mx-auto mb-6"></div>
+            <p className="text-slate-300 max-w-3xl mx-auto text-lg">
+              CyberDome er bygget som en sammenhængende rejse: beslutning under pres, teknisk træning og fælles forståelse.
+              Vælg en zone her og hop direkte ned til detaljerne.
+            </p>
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={() => scrollTo('executive')}
+                className="px-6 py-3 bg-cyan-900/20 hover:bg-cyan-900/40 border border-cyan-700 hover:border-cyan-400 text-cyan-200 font-bold tracking-[0.2em] uppercase transition-all rounded-sm flex items-center justify-center gap-2"
+              >
+                <Activity className="w-5 h-5" />
+                Command Center
+              </button>
+              <button
+                onClick={() => scrollTo('forge')}
+                className="px-6 py-3 bg-fuchsia-900/20 hover:bg-fuchsia-900/40 border border-fuchsia-700 hover:border-fuchsia-400 text-fuchsia-200 font-bold tracking-[0.2em] uppercase transition-all rounded-sm flex items-center justify-center gap-2"
+              >
+                <Lock className="w-5 h-5" />
+                The Forge
+              </button>
+              <button
+                onClick={() => scrollTo('nexus')}
+                className="px-6 py-3 bg-emerald-900/20 hover:bg-emerald-900/40 border border-emerald-700 hover:border-emerald-400 text-emerald-200 font-bold tracking-[0.2em] uppercase transition-all rounded-sm flex items-center justify-center gap-2"
+              >
+                <Eye className="w-5 h-5" />
+                The Nexus
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Zone 01: The Command Center */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_20s_infinite_alternate]"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80)' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+
+                {/* Overlay Content */}
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex items-center gap-2 text-cyan-400">
+                      <Activity className="w-5 h-5" />
+                      <span className="font-mono text-sm tracking-widest">ZONE 01</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); scrollTo('executive'); }}
+                        className="px-3 py-2 bg-slate-950/60 hover:bg-cyan-500 hover:text-black text-cyan-300 border border-slate-700 hover:border-cyan-400 transition-all rounded-sm text-xs font-mono uppercase tracking-widest"
+                        title="Gå til zone"
+                      >
+                        Gå til
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); openTour(1); }}
+                        className="p-2 bg-cyan-900/50 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-500 rounded-full transition-all hover:scale-110 group-hover:animate-pulse z-20 relative"
+                        title="Åbn rundtur: Command Center"
+                      >
+                        <Scan className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">The Command Center</h3>
+                  <p className="text-slate-400 text-sm mb-4">
+                    Et højintens krisestabsmiljø til topledelse og krisestyring—med War Room, Deep-fake Simulator og Observer Gallery.
+                  </p>
+                  <div className="flex gap-2">
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">War Room</span>
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Deep-fakes</span>
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Observer</span>
+                  </div>
+                </div>
+              </TiltCard>
+            </motion.div>
+
+            {/* Zone 02: The Forge */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_25s_infinite_alternate-reverse]"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80)' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex items-center gap-2 text-fuchsia-400">
+                      <Lock className="w-5 h-5" />
+                      <span className="font-mono text-sm tracking-widest">ZONE 02</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); scrollTo('forge'); }}
+                        className="px-3 py-2 bg-slate-950/60 hover:bg-fuchsia-500 hover:text-black text-fuchsia-200 border border-slate-700 hover:border-fuchsia-400 transition-all rounded-sm text-xs font-mono uppercase tracking-widest"
+                        title="Gå til zone"
+                      >
+                        Gå til
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); openTour(2); }}
+                        className="p-2 bg-fuchsia-900/50 hover:bg-fuchsia-500 hover:text-black text-fuchsia-400 border border-fuchsia-500 rounded-full transition-all hover:scale-110 z-20 relative"
+                        title="Åbn rundtur: The Forge"
+                      >
+                        <Maximize2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl font-bold mb-2 group-hover:text-fuchsia-300 transition-colors">The Forge</h3>
+                  <p className="text-slate-400 text-sm mb-4">
+                    Den tekniske træningszone: Modular Cyber Range til Red/Blue Teaming, OT/IoT Lab med fysisk hardware, og en CTF Arena til gamificeret læring.
+                  </p>
+                  <div className="flex gap-2">
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Cyber Range</span>
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">OT/IoT Lab</span>
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">CTF</span>
+                  </div>
+                </div>
+              </TiltCard>
+            </motion.div>
+
+            {/* Zone 03: The Nexus */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+            >
+              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_22s_infinite_alternate]"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80)' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex items-center gap-2 text-emerald-400">
+                      <Eye className="w-5 h-5" />
+                      <span className="font-mono text-sm tracking-widest">ZONE 03</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); scrollTo('nexus'); }}
+                        className="px-3 py-2 bg-slate-950/60 hover:bg-emerald-500 hover:text-black text-emerald-200 border border-slate-700 hover:border-emerald-400 transition-all rounded-sm text-xs font-mono uppercase tracking-widest"
+                        title="Gå til zone"
+                      >
+                        Gå til
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); openTour(3); }}
+                        className="p-2 bg-emerald-900/50 hover:bg-emerald-500 hover:text-black text-emerald-400 border border-emerald-500 rounded-full transition-all hover:scale-110 z-20 relative"
+                        title="Åbn rundtur: The Nexus"
+                      >
+                        <Maximize2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl font-bold mb-2 group-hover:text-emerald-300 transition-colors">The Nexus</h3>
+                  <p className="text-slate-400 text-sm mb-4">
+                    Oplevelsescenteret der gør det usynlige synligt: fysiske artefakter, VR “Journey through the Wire”, Social Engineering Maze og data-visualisering i realtid.
+                  </p>
+                  <div className="flex gap-2">
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Museum</span>
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">VR</span>
+                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Social engineering</span>
+                  </div>
+                </div>
+              </TiltCard>
+            </motion.div>
+          </div>
+
+          {/* Architecture & Atmosphere + Why Aalborg */}
+          <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="p-10 rounded-2xl border border-slate-800 bg-slate-950/60 backdrop-blur">
+              <p className="text-cyan-400 font-mono text-sm tracking-[0.35em] uppercase mb-4">Arkitektur og atmosfære</p>
+              <h3 className="text-3xl font-bold mb-6 text-white">Bygningen understøtter formålet</h3>
+              <div className="space-y-5 text-slate-300">
+                <div>
+                  <div className="font-bold text-white mb-1">Ydre</div>
+                  <p className="text-slate-400">
+                    Mørkt, halvgennemsigtigt glas med indbyggede LED-striber der minder om binær kode og kredsløb om natten.
+                  </p>
+                </div>
+                <div>
+                  <div className="font-bold text-white mb-1">Indre</div>
+                  <p className="text-slate-400">
+                    En blanding af rå beton (styrke) og varmt træ (det menneskelige element). Dæmpet akustik skaber fokus og fortrolighed.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-10 rounded-2xl border border-slate-800 bg-slate-950/60 backdrop-blur">
+              <p className="text-cyan-400 font-mono text-sm tracking-[0.35em] uppercase mb-4">Hvorfor Aalborg?</p>
+              <h3 className="text-3xl font-bold mb-6 text-white">Synergien gør byen ideel</h3>
+              <div className="grid grid-cols-1 gap-4">
+                <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/40">
+                  <div className="font-bold text-white mb-1">Aalborg Universitet (AAU)</div>
+                  <p className="text-slate-400">Førende miljøer inden for datalogi og it-sikkerhed.</p>
+                </div>
+                <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/40">
+                  <div className="font-bold text-white mb-1">Industrien</div>
+                  <p className="text-slate-400">Nordjysk produktion kræver beskyttelse af OT/IoT—og træning på rigtig hardware.</p>
+                </div>
+                <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/40">
+                  <div className="font-bold text-white mb-1">Porten til Norden</div>
+                  <p className="text-slate-400">Knudepunkt for digital infrastruktur mod Skandinavien.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* --- Executive Narrative Flow --- */}
       <section id="executive" className="relative py-24 z-10 bg-gradient-to-b from-slate-950 via-slate-900/70 to-slate-950 border-y border-slate-900">
         <div className="container mx-auto px-6">
@@ -755,186 +988,6 @@ const App: React.FC = () => {
             >
               Planlæg besøg
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* --- The Facility (3D Cards) --- */}
-      <section id="facility" className="relative py-24 z-10 bg-slate-900/50">
-        <div className="container mx-auto px-6">
-          <div className="mb-16 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Tre zoner. Én fortælling.</h2>
-            <div className="w-24 h-1 bg-cyan-500 mx-auto mb-6"></div>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              CyberDome bygger bro mellem mennesker og teknologi. Zonerne giver hver sin vinkel: beslutning, teknik og forståelse.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Zone 01: The Command Center */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_20s_infinite_alternate]"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80)' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-
-                {/* Overlay Content */}
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="flex items-center gap-2 text-cyan-400">
-                      <Activity className="w-5 h-5" />
-                      <span className="font-mono text-sm tracking-widest">ZONE 01</span>
-                    </div>
-                    {/* Interactive Drone Icon */}
-                    <button
-                      onClick={(e) => { e.stopPropagation(); openTour(1); }}
-                      className="p-2 bg-cyan-900/50 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-500 rounded-full transition-all hover:scale-110 group-hover:animate-pulse z-20 relative"
-                      title="Åbn rundtur: Command Center"
-                    >
-                      <Scan className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  <h3 className="text-3xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">The Command Center</h3>
-                  <p className="text-slate-400 text-sm mb-4">
-                    Et højintens krisestabsmiljø til topledelse og krisestyring—med War Room, Deep-fake Simulator og Observer Gallery.
-                  </p>
-                  <div className="flex gap-2">
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">War Room</span>
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Deep-fakes</span>
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Observer</span>
-                  </div>
-                </div>
-              </TiltCard>
-            </motion.div>
-
-            {/* Zone 02: The Forge */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_25s_infinite_alternate-reverse]"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80)' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="flex items-center gap-2 text-fuchsia-400">
-                      <Lock className="w-5 h-5" />
-                      <span className="font-mono text-sm tracking-widest">ZONE 02</span>
-                    </div>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); openTour(2); }}
-                      className="p-2 bg-fuchsia-900/50 hover:bg-fuchsia-500 hover:text-black text-fuchsia-400 border border-fuchsia-500 rounded-full transition-all hover:scale-110 z-20 relative"
-                    >
-                      <Maximize2 className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  <h3 className="text-3xl font-bold mb-2 group-hover:text-fuchsia-300 transition-colors">The Forge</h3>
-                  <p className="text-slate-400 text-sm mb-4">
-                    Den tekniske træningszone: Modular Cyber Range til Red/Blue Teaming, OT/IoT Lab med fysisk hardware, og en CTF Arena til gamificeret læring.
-                  </p>
-                  <div className="flex gap-2">
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Cyber Range</span>
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">OT/IoT Lab</span>
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">CTF</span>
-                  </div>
-                </div>
-              </TiltCard>
-            </motion.div>
-
-            {/* Zone 03: The Nexus */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-            >
-              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_22s_infinite_alternate]"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80)' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="flex items-center gap-2 text-emerald-400">
-                      <Eye className="w-5 h-5" />
-                      <span className="font-mono text-sm tracking-widest">ZONE 03</span>
-                    </div>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); openTour(3); }}
-                      className="p-2 bg-emerald-900/50 hover:bg-emerald-500 hover:text-black text-emerald-400 border border-emerald-500 rounded-full transition-all hover:scale-110 z-20 relative"
-                    >
-                      <Maximize2 className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  <h3 className="text-3xl font-bold mb-2 group-hover:text-emerald-300 transition-colors">The Nexus</h3>
-                  <p className="text-slate-400 text-sm mb-4">
-                    Oplevelsescenteret der gør det usynlige synligt: fysiske artefakter, VR “Journey through the Wire”, Social Engineering Maze og data-visualisering i realtid.
-                  </p>
-                  <div className="flex gap-2">
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Museum</span>
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">VR</span>
-                    <span className="px-2 py-1 bg-slate-900/80 text-xs font-mono text-slate-300 border border-slate-700 rounded">Social engineering</span>
-                  </div>
-                </div>
-              </TiltCard>
-            </motion.div>
-          </div>
-
-          {/* Architecture & Atmosphere + Why Aalborg */}
-          <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="p-10 rounded-2xl border border-slate-800 bg-slate-950/60 backdrop-blur">
-              <p className="text-cyan-400 font-mono text-sm tracking-[0.35em] uppercase mb-4">Arkitektur og atmosfære</p>
-              <h3 className="text-3xl font-bold mb-6 text-white">Bygningen understøtter formålet</h3>
-              <div className="space-y-5 text-slate-300">
-                <div>
-                  <div className="font-bold text-white mb-1">Ydre</div>
-                  <p className="text-slate-400">
-                    Mørkt, halvgennemsigtigt glas med indbyggede LED-striber der minder om binær kode og kredsløb om natten.
-                  </p>
-                </div>
-                <div>
-                  <div className="font-bold text-white mb-1">Indre</div>
-                  <p className="text-slate-400">
-                    En blanding af rå beton (styrke) og varmt træ (det menneskelige element). Dæmpet akustik skaber fokus og fortrolighed.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-10 rounded-2xl border border-slate-800 bg-slate-950/60 backdrop-blur">
-              <p className="text-cyan-400 font-mono text-sm tracking-[0.35em] uppercase mb-4">Hvorfor Aalborg?</p>
-              <h3 className="text-3xl font-bold mb-6 text-white">Synergien gør byen ideel</h3>
-              <div className="grid grid-cols-1 gap-4">
-                <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/40">
-                  <div className="font-bold text-white mb-1">Aalborg Universitet (AAU)</div>
-                  <p className="text-slate-400">Førende miljøer inden for datalogi og it-sikkerhed.</p>
-                </div>
-                <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/40">
-                  <div className="font-bold text-white mb-1">Industrien</div>
-                  <p className="text-slate-400">Nordjysk produktion kræver beskyttelse af OT/IoT—og træning på rigtig hardware.</p>
-                </div>
-                <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/40">
-                  <div className="font-bold text-white mb-1">Porten til Norden</div>
-                  <p className="text-slate-400">Knudepunkt for digital infrastruktur mod Skandinavien.</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
