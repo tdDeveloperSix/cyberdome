@@ -7,6 +7,7 @@ interface Scene {
   subtitle: string;
   description: string;
   image: string;
+  videoSrc?: string; // Optional background video (served locally recommended)
   duration: number; // Seconds to linger in this room
   analysis: string[]; // Bullet points for the "HUD analysis"
 }
@@ -18,6 +19,8 @@ const SCENES: Scene[] = [
     subtitle: 'Hub for digital modstandskraft',
     description: 'Et samlet miljø, hvor vi arbejder med digital sikkerhed i praksis. Det handler ikke kun om teknik—men om samspil mellem ledelse, teknik og mennesker.',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
+    // Tip: Streamable-links bruger ofte udløbende signatur-URL’er. Læg derfor Veo-videoen lokalt i `public/videos/intro.mp4`.
+    videoSrc: '/videos/intro.mp4',
     duration: 7,
     analysis: ['Velkommen', 'Tre zoner', 'Ét fælles sprog']
   },
@@ -66,6 +69,7 @@ export const VirtualTour: React.FC<VirtualTourProps> = ({ onClose, initialSceneI
   
   const progressInterval = useRef<NodeJS.Timeout | null>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const SCENE_DURATION_MS = SCENES[currentIndex].duration * 1000;
   const UPDATE_FREQ = 50; // ms
 
@@ -124,6 +128,23 @@ export const VirtualTour: React.FC<VirtualTourProps> = ({ onClose, initialSceneI
 
   const scene = SCENES[currentIndex];
 
+  // Sync play/pause state with background video (if present)
+  useEffect(() => {
+    if (isHero) return; // hero er statisk baggrund; video må gerne køre videre
+    const v = videoRef.current;
+    if (!v) return;
+    if (isPlaying) {
+      const p = v.play();
+      if (p && typeof (p as Promise<void>).catch === 'function') {
+        (p as Promise<void>).catch(() => {
+          // Autoplay kan fejle på nogle devices/browsere; UI-knappen kan starte afspilning.
+        });
+      }
+    } else {
+      v.pause();
+    }
+  }, [isPlaying, currentIndex, isHero]);
+
   const containerClasses = isOverlay
     ? 'fixed inset-0 z-[100]'
     : 'absolute inset-0 w-full h-full';
@@ -161,16 +182,38 @@ export const VirtualTour: React.FC<VirtualTourProps> = ({ onClose, initialSceneI
       {/* --- Viewport Layer --- */}
       <div className="absolute inset-0 overflow-hidden bg-black">
         
-        {/* Background Image with "Dolly In" Animation */}
-        <div 
+        {/* Background Media (Video preferred, fallback to image) */}
+        <div
           key={scene.id} // Key change triggers re-render of animation
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
-          style={{ 
-            backgroundImage: `url(${scene.image})`,
-            animation: isPlaying && !isTransitioning ? `dolly-in ${scene.duration + 2}s linear forwards` : 'none',
-            transform: isPlaying ? 'scale(1)' : 'scale(1.1)' // Maintain scale if paused
-          }}
+          className={`absolute inset-0 transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
         >
+          {scene.videoSrc ? (
+            <video
+              ref={(el) => { videoRef.current = el; }}
+              className="absolute inset-0 w-full h-full object-cover"
+              src={scene.videoSrc}
+              poster={scene.image}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={{
+                animation: isPlaying && !isTransitioning ? `dolly-in ${scene.duration + 2}s linear forwards` : 'none',
+                transform: isPlaying ? 'scale(1)' : 'scale(1.05)',
+              }}
+            />
+          ) : (
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${scene.image})`,
+                animation: isPlaying && !isTransitioning ? `dolly-in ${scene.duration + 2}s linear forwards` : 'none',
+                transform: isPlaying ? 'scale(1)' : 'scale(1.1)',
+              }}
+            />
+          )}
+
           {/* Filters for Cyber Look */}
           <div className="absolute inset-0 bg-slate-900/40 mix-blend-multiply"></div>
           <div className="absolute inset-0 bg-cyan-900/10 mix-blend-overlay"></div>
