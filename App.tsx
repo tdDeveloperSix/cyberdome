@@ -650,7 +650,13 @@ const App: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
+              <TiltCard
+                className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-500/60"
+                onClick={() => scrollTo('executive')}
+                role="button"
+                tabIndex={0}
+                ariaLabel="Gå til Zone 01: The Command Center"
+              >
                 {/* Performance: image by default. Desktop/tablet video only on hover/focus (no src until then). */}
                 <div
                   className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60"
@@ -697,13 +703,6 @@ const App: React.FC = () => {
                       >
                         Gå til
                       </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); openTour(1); }}
-                        className="p-2 bg-cyan-900/50 hover:bg-cyan-500 hover:text-black text-cyan-400 border border-cyan-500 rounded-full transition-all hover:scale-110 group-hover:animate-pulse z-20 relative"
-                        title="Åbn rundtur: Command Center"
-                      >
-                        <Scan className="w-5 h-5" />
-                      </button>
                     </div>
                   </div>
 
@@ -727,7 +726,13 @@ const App: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2 }}
             >
-              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
+              <TiltCard
+                className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-fuchsia-500/60"
+                onClick={() => scrollTo('forge')}
+                role="button"
+                tabIndex={0}
+                ariaLabel="Gå til Zone 02: The Forge"
+              >
                 {/* Performance: image by default. Desktop/tablet video only on hover/focus (no src until then). */}
                 <div
                   className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60"
@@ -772,13 +777,6 @@ const App: React.FC = () => {
                       >
                         Gå til
                       </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); openTour(2); }}
-                        className="p-2 bg-fuchsia-900/50 hover:bg-fuchsia-500 hover:text-black text-fuchsia-400 border border-fuchsia-500 rounded-full transition-all hover:scale-110 z-20 relative"
-                        title="Åbn rundtur: The Forge"
-                      >
-                        <Maximize2 className="w-5 h-5" />
-                      </button>
                     </div>
                   </div>
 
@@ -802,7 +800,13 @@ const App: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
+              <TiltCard
+                className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/60"
+                onClick={() => scrollTo('nexus')}
+                role="button"
+                tabIndex={0}
+                ariaLabel="Gå til Zone 03: The Nexus"
+              >
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_22s_infinite_alternate]"
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80)' }}
@@ -821,13 +825,6 @@ const App: React.FC = () => {
                         title="Gå til zone"
                       >
                         Gå til
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); openTour(3); }}
-                        className="p-2 bg-emerald-900/50 hover:bg-emerald-500 hover:text-black text-emerald-400 border border-emerald-500 rounded-full transition-all hover:scale-110 z-20 relative"
-                        title="Åbn rundtur: The Nexus"
-                      >
-                        <Maximize2 className="w-5 h-5" />
                       </button>
                     </div>
                   </div>

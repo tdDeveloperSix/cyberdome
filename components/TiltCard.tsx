@@ -1,12 +1,26 @@
-import React, { useRef, useState, MouseEvent } from 'react';
+import React, { useRef, useState, MouseEvent, KeyboardEvent } from 'react';
 
 interface TiltCardProps {
   children: React.ReactNode;
   className?: string;
   glowColor?: string;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+  role?: React.AriaRole;
+  tabIndex?: number;
+  ariaLabel?: string;
 }
 
-export const TiltCard: React.FC<TiltCardProps> = ({ children, className = "", glowColor = "rgba(6,182,212,0.3)" }) => {
+export const TiltCard: React.FC<TiltCardProps> = ({
+  children,
+  className = "",
+  glowColor = "rgba(6,182,212,0.3)",
+  onClick,
+  onKeyDown,
+  role,
+  tabIndex,
+  ariaLabel
+}) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -34,12 +48,27 @@ export const TiltCard: React.FC<TiltCardProps> = ({ children, className = "", gl
     setRotation({ x: 0, y: 0 });
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (!onClick) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      // Simuler klik for keyboard navigation
+      onClick(e as unknown as React.MouseEvent<HTMLDivElement>);
+    }
+  };
+
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role={role}
+      tabIndex={tabIndex}
+      aria-label={ariaLabel}
       className={`relative transition-all duration-200 ease-out preserve-3d ${className}`}
       style={{
         transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${isHovering ? 1.02 : 1})`,
