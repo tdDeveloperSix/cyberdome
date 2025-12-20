@@ -650,10 +650,23 @@ const App: React.FC = () => {
               transition={{ duration: 0.7 }}
             >
               <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_20s_infinite_alternate]"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80)' }}
-                />
+                {/* Mobile: image (lighter). Desktop/tablet: muted looping video. */}
+                <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center md:hidden animate-[ken-burns_20s_infinite_alternate]"
+                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80)' }}
+                  />
+                  <video
+                    className="hidden md:block absolute inset-0 w-full h-full object-cover animate-[ken-burns_20s_infinite_alternate]"
+                    src="/videos/command-center.mp4"
+                    poster="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
 
                 {/* Overlay Content */}
@@ -702,10 +715,23 @@ const App: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_25s_infinite_alternate-reverse]"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80)' }}
-                />
+                {/* Mobile: image (lighter). Desktop/tablet: muted looping video. */}
+                <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center md:hidden animate-[ken-burns_25s_infinite_alternate-reverse]"
+                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80)' }}
+                  />
+                  <video
+                    className="hidden md:block absolute inset-0 w-full h-full object-cover animate-[ken-burns_25s_infinite_alternate-reverse]"
+                    src="/videos/forge.mp4"
+                    poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-8 w-full">
                   <div className="flex justify-between items-start mb-2">
