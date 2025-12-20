@@ -13,40 +13,40 @@ interface Scene {
 
 const SCENES: Scene[] = [
   {
-    id: 'approach',
-    title: 'FACILITY APPROACH',
-    subtitle: 'EXTERIOR PERIMETER',
-    description: 'Ankomst til Cyberdome Aalborg. Bygningen er sikret med biometrisk adgangskontrol og Faraday-skærmet arkitektur.',
+    id: 'intro',
+    title: 'AALBORG CYBERDOME',
+    subtitle: 'HUB FOR DIGITAL MODSTANDSKRAFT',
+    description: 'Et samlet miljø der arbejder med, hvordan man beskytter sig digitalt i praksis. Tre zoner, ét fælles sprog på tværs af roller.',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
-    duration: 8,
-    analysis: ['PERIMETER: SECURE', 'SIGNAL: ENCRYPTED', 'ACCESS: GRANTED']
+    duration: 7,
+    analysis: ['STATUS: ONLINE', 'MISSION: RESILIENCE', 'MODE: TOUR READY']
   },
   {
-    id: 'bridge',
-    title: 'COMMAND BRIDGE',
-    subtitle: 'ZONE 01 - STRATEGY',
-    description: 'Nervescentret. Her samles direktionen foran en 360-graders data-væg. Real-time overvågning af trusselsbilledet.',
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=80', // Command center
+    id: 'command-center',
+    title: 'THE COMMAND CENTER',
+    subtitle: 'ZONE 01 - TOPLEDELSE & KRISESTYRING',
+    description: 'War Room, Deep-fake Simulator og Observer Gallery. Træn beslutninger i realtid, når tempoet er højt og konsekvensen er reel.',
+    image: 'https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80',
     duration: 10,
-    analysis: ['WALL: 8K MATRIX', 'CAPACITY: 12 EXEC', 'STATUS: LIVE']
+    analysis: ['WAR ROOM: 360°', 'DECISIONS: REALTIME', 'COMMS: STRESS TEST']
   },
   {
-    id: 'core',
-    title: 'SERVER CORE',
-    subtitle: 'ZONE 02 - CONTAINMENT',
-    description: 'Maskinrummet. En fysisk "Escape Room" oplevelse med haptisk feedback. Her skal I manuelt genstarte kritiske systemer.',
-    image: 'https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&fit=crop&w=2000&q=80', // Industrial core
+    id: 'forge',
+    title: 'THE FORGE',
+    subtitle: 'ZONE 02 - CYBER RANGE & TEKNISK TRÆNING',
+    description: 'Modular Cyber Range, OT/IoT Lab og CTF Arena. Hands-on træning i sikre, isolerede miljøer—inkl. fysisk hardware og OT-konsekvenser.',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80',
     duration: 10,
-    analysis: ['TEMP: RISING', 'HAPTICS: ACTIVE', 'MODE: MANUAL OVERRIDE']
+    analysis: ['RANGE: ISOLATED', 'OT/IoT: HARDWARE', 'CTF: COMPETE']
   },
   {
-    id: 'vr',
-    title: 'NEURAL LINK',
-    subtitle: 'ZONE 03 - VISUALIZATION',
-    description: 'VR-Laboratoriet. Se angrebet indefra. Kompleks kode visualiseres som 3D strukturer, hvilket gør det abstrakte konkret.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80', // VR / Cyber
+    id: 'nexus',
+    title: 'THE NEXUS',
+    subtitle: 'ZONE 03 - OPLEVELSESCENTER & FORSTÅELSE',
+    description: 'Gør det usynlige synligt: fysiske artefakter, VR “Journey through the Wire”, Social Engineering Maze og realtids data-visualisering.',
+    image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80',
     duration: 9,
-    analysis: ['VR: IMMERSIVE', 'DATA: 3D RENDER', 'LINK: STABLE']
+    analysis: ['MUSEUM: PHYSICAL', 'VR: IMMERSIVE', 'HUMAN: AWARENESS']
   }
 ];
 
