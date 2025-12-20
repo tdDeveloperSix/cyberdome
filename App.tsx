@@ -384,6 +384,7 @@ const App: React.FC = () => {
   const [initialTourIndex, setInitialTourIndex] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [zonesIntroExpanded, setZonesIntroExpanded] = useState(false);
+  const [activeFacilityVideo, setActiveFacilityVideo] = useState<'command' | 'forge' | null>(null);
 
   const [currentNodeId, setCurrentNodeId] = useState<string | null>(null);
   const [currentNode, setCurrentNode] = useState<ScenarioNode | null>(null);
@@ -650,22 +651,34 @@ const App: React.FC = () => {
               transition={{ duration: 0.7 }}
             >
               <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                {/* Mobile: image (lighter). Desktop/tablet: muted looping video. */}
-                <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60">
+                {/* Performance: image by default. Desktop/tablet video only on hover/focus (no src until then). */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60"
+                  onMouseEnter={() => setActiveFacilityVideo('command')}
+                  onMouseLeave={() => setActiveFacilityVideo((v) => (v === 'command' ? null : v))}
+                  onFocus={() => setActiveFacilityVideo('command')}
+                  onBlur={() => setActiveFacilityVideo((v) => (v === 'command' ? null : v))}
+                >
                   <div
                     className="absolute inset-0 bg-cover bg-center md:hidden animate-[ken-burns_20s_infinite_alternate]"
                     style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80)' }}
                   />
-                  <video
-                    className="hidden md:block absolute inset-0 w-full h-full object-cover animate-[ken-burns_20s_infinite_alternate]"
-                    src="/videos/command-center.mp4"
-                    poster="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
+                  {/* Desktop poster always visible; video only mounts when active */}
+                  <div
+                    className="hidden md:block absolute inset-0 bg-cover bg-center animate-[ken-burns_20s_infinite_alternate]"
+                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=2000&q=80)' }}
                   />
+                  {activeFacilityVideo === 'command' && (
+                    <video
+                      className="hidden md:block absolute inset-0 w-full h-full object-cover"
+                      src="/videos/command-center.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                    />
+                  )}
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
 
@@ -715,22 +728,34 @@ const App: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <TiltCard className="h-[500px] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group cursor-crosshair">
-                {/* Mobile: image (lighter). Desktop/tablet: muted looping video. */}
-                <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60">
+                {/* Performance: image by default. Desktop/tablet video only on hover/focus (no src until then). */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60"
+                  onMouseEnter={() => setActiveFacilityVideo('forge')}
+                  onMouseLeave={() => setActiveFacilityVideo((v) => (v === 'forge' ? null : v))}
+                  onFocus={() => setActiveFacilityVideo('forge')}
+                  onBlur={() => setActiveFacilityVideo((v) => (v === 'forge' ? null : v))}
+                >
                   <div
                     className="absolute inset-0 bg-cover bg-center md:hidden animate-[ken-burns_25s_infinite_alternate-reverse]"
                     style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80)' }}
                   />
-                  <video
-                    className="hidden md:block absolute inset-0 w-full h-full object-cover animate-[ken-burns_25s_infinite_alternate-reverse]"
-                    src="/videos/forge.mp4"
-                    poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
+                  {/* Desktop poster always visible; video only mounts when active */}
+                  <div
+                    className="hidden md:block absolute inset-0 bg-cover bg-center animate-[ken-burns_25s_infinite_alternate-reverse]"
+                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80)' }}
                   />
+                  {activeFacilityVideo === 'forge' && (
+                    <video
+                      className="hidden md:block absolute inset-0 w-full h-full object-cover"
+                      src="/videos/forge.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                    />
+                  )}
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-8 w-full">
