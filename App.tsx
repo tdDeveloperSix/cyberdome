@@ -683,6 +683,9 @@ const App: React.FC = () => {
                       loop
                       playsInline
                       preload="none"
+                      onLoadedMetadata={(e) => {
+                        e.currentTarget.playbackRate = 0.5;
+                      }}
                     />
                   )}
                 </div>
@@ -759,6 +762,9 @@ const App: React.FC = () => {
                       loop
                       playsInline
                       preload="none"
+                      onLoadedMetadata={(e) => {
+                        e.currentTarget.playbackRate = 0.5;
+                      }}
                     />
                   )}
                 </div>
@@ -833,6 +839,9 @@ const App: React.FC = () => {
                       loop
                       playsInline
                       preload="none"
+                      onLoadedMetadata={(e) => {
+                        e.currentTarget.playbackRate = 0.5;
+                      }}
                     />
                   )}
                 </div>

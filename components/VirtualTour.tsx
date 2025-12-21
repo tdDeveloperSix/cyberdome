@@ -204,6 +204,10 @@ export const VirtualTour: React.FC<VirtualTourProps> = ({ onClose, initialSceneI
               loop
               playsInline
               preload="metadata"
+              onLoadedMetadata={(e) => {
+                // Kør alle videoer i halv hastighed
+                e.currentTarget.playbackRate = 0.5;
+              }}
               style={{
                 animation: isPlaying && !isTransitioning ? `dolly-in ${scene.duration + 2}s linear forwards` : 'none',
                 transform: isPlaying ? 'scale(1)' : 'scale(1.05)',
