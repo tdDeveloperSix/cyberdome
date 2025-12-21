@@ -384,7 +384,7 @@ const App: React.FC = () => {
   const [initialTourIndex, setInitialTourIndex] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [zonesIntroExpanded, setZonesIntroExpanded] = useState(false);
-  const [activeFacilityVideo, setActiveFacilityVideo] = useState<'command' | 'forge' | null>(null);
+  const [activeFacilityVideo, setActiveFacilityVideo] = useState<'command' | 'forge' | 'nexus' | null>(null);
 
   const [currentNodeId, setCurrentNodeId] = useState<string | null>(null);
   const [currentNode, setCurrentNode] = useState<ScenarioNode | null>(null);
@@ -807,10 +807,35 @@ const App: React.FC = () => {
                 tabIndex={0}
                 ariaLabel="Gå til Zone 03: The Nexus"
               >
+                {/* Performance: image by default. Desktop/tablet video only on hover/focus (no src until then). */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 group-hover:opacity-80 opacity-60 animate-[ken-burns_22s_infinite_alternate]"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80)' }}
-                />
+                  className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 opacity-60"
+                  onMouseEnter={() => setActiveFacilityVideo('nexus')}
+                  onMouseLeave={() => setActiveFacilityVideo((v) => (v === 'nexus' ? null : v))}
+                  onFocus={() => setActiveFacilityVideo('nexus')}
+                  onBlur={() => setActiveFacilityVideo((v) => (v === 'nexus' ? null : v))}
+                >
+                  <div
+                    className="absolute inset-0 bg-cover bg-center md:hidden animate-[ken-burns_22s_infinite_alternate]"
+                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80)' }}
+                  />
+                  {/* Desktop poster always visible; video only mounts when active */}
+                  <div
+                    className="hidden md:block absolute inset-0 bg-cover bg-center animate-[ken-burns_22s_infinite_alternate]"
+                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80)' }}
+                  />
+                  {activeFacilityVideo === 'nexus' && (
+                    <video
+                      className="hidden md:block absolute inset-0 w-full h-full object-cover"
+                      src="/videos/nexus.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                    />
+                  )}
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-8 w-full">
                   <div className="flex justify-between items-start mb-2">

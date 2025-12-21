@@ -50,6 +50,7 @@ const SCENES: Scene[] = [
     subtitle: 'Zone 3 – oplevelse og forståelse',
     description: 'The Nexus gør cyber forståeligt: historiske artefakter, VR-oplevelser, social engineering og en data-visualisering, der viser trusler som noget konkret.',
     image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=2000&q=80',
+    videoSrc: '/videos/nexus.mp4',
     duration: 9,
     analysis: ['Udstilling', 'VR', 'Adfærd og awareness']
   }
