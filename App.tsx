@@ -684,7 +684,7 @@ const App: React.FC = () => {
                       playsInline
                       preload="none"
                       onLoadedMetadata={(e) => {
-                        e.currentTarget.playbackRate = 0.5;
+                        e.currentTarget.playbackRate = 0.75;
                       }}
                     />
                   )}
@@ -763,7 +763,7 @@ const App: React.FC = () => {
                       playsInline
                       preload="none"
                       onLoadedMetadata={(e) => {
-                        e.currentTarget.playbackRate = 0.5;
+                        e.currentTarget.playbackRate = 0.75;
                       }}
                     />
                   )}
@@ -840,7 +840,7 @@ const App: React.FC = () => {
                       playsInline
                       preload="none"
                       onLoadedMetadata={(e) => {
-                        e.currentTarget.playbackRate = 0.5;
+                        e.currentTarget.playbackRate = 0.75;
                       }}
                     />
                   )}
