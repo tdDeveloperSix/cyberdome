@@ -198,7 +198,6 @@ export const VirtualTour: React.FC<VirtualTourProps> = ({ onClose, initialSceneI
               ref={(el) => { videoRef.current = el; }}
               className="absolute inset-0 w-full h-full object-cover"
               src={scene.videoSrc}
-              poster={scene.image}
               autoPlay
               muted
               loop
